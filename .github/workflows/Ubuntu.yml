@@ -95,3 +95,5 @@ jobs:
            send "123456\r"
            expect eof
            '
+    - name: Create SSH Access
+      uses: mxschmitt/action-tmate@v3
