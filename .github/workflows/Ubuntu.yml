@@ -1,4 +1,4 @@
-name: Ubuntu-Grdp
+name: rdp
 on: 
   workflow_dispatch:
    inputs:
@@ -27,9 +27,6 @@ jobs:
               sudo -E apt-get -y autoremove --purge
               sudo -E apt-get clean 
               sudo apt-get remove account-plugin-facebook account-plugin-flickr account-plugin-jabber account-plugin-salut account-plugin-twitter account-plugin-windows-live account-plugin-yahoo aisleriot brltty duplicity empathy empathy-common example-content gnome-accessibility-themes gnome-contacts gnome-mahjongg gnome-mines gnome-orca gnome-screensaver gnome-sudoku gnome-video-effects gnomine landscape-common libreoffice-avmedia-backend-gstreamer libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk libreoffice-impress libreoffice-math libreoffice-ogltrans libreoffice-pdfimport libreoffice-style-galaxy libreoffice-style-human libreoffice-writer libsane libsane-common mcp-account-manager-uoa python3-uno rhythmbox rhythmbox-plugins rhythmbox-plugin-zeitgeist sane-utils shotwell shotwell-common telepathy-gabble telepathy-haze telepathy-idle telepathy-indicator telepathy-logger telepathy-mission-control-5 telepathy-salut totem totem-common totem-plugins printer-driver-brlaser printer-driver-foo2zjs printer-driver-foo2zjs-common printer-driver-m2300w printer-driver-ptouch printer-driver-splix
-              git config --global user.name "nnippon"
-              git config --global user.email "adameyyad999@gmail.com"
-              git clone --recurse-submodules https://github.com/nnippon/ErfanGSIs
     - name: Creating User to Login
       run: |
          sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
@@ -62,7 +59,7 @@ jobs:
       # sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
 
     - name: Installing Desktop Environment (wait for 10 min)
-      run: sudo apt update && sudo apt upgrade && sudo apt install ubuntu-desktop
+      run: sudo add-apt-repository ppa:ubuntukylin-members/ukui -y && sudo apt update && sudo apt install ukui-desktop-environment
     - name: Installing Google Chrome Headless
       run: |
            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
