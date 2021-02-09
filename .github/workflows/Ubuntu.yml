@@ -14,22 +14,14 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-    - name: Cleanup
-      run: |
-              sudo -E apt-get -qq update
-              sudo -E apt-get -qq install bc build-essential zip curl libstdc++6 git wget python gcc clang libssl-dev repo rsync flex bison ccache openjdk-8-jdk
-              sudo -E apt-get install expect
-              docker rmi `docker images -q`
-              sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d
-              sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* google* dotnet* powershell openjdk* mysql* 
-              sudo -E apt-get update
-              sudo apt-get autoremove
-              sudo -E apt-get -y autoremove --purge
-              sudo -E apt-get clean 
-              sudo apt-get remove account-plugin-facebook account-plugin-flickr account-plugin-jabber account-plugin-salut account-plugin-twitter account-plugin-windows-live account-plugin-yahoo aisleriot brltty duplicity empathy empathy-common example-content gnome-accessibility-themes gnome-contacts gnome-mahjongg gnome-mines gnome-orca gnome-screensaver gnome-sudoku gnome-video-effects gnomine landscape-common libreoffice-avmedia-backend-gstreamer libreoffice-base-core libreoffice-calc libreoffice-common libreoffice-core libreoffice-draw libreoffice-gnome libreoffice-gtk libreoffice-impress libreoffice-math libreoffice-ogltrans libreoffice-pdfimport libreoffice-style-galaxy libreoffice-style-human libreoffice-writer libsane libsane-common mcp-account-manager-uoa python3-uno rhythmbox rhythmbox-plugins rhythmbox-plugin-zeitgeist sane-utils shotwell shotwell-common telepathy-gabble telepathy-haze telepathy-idle telepathy-indicator telepathy-logger telepathy-mission-control-5 telepathy-salut totem totem-common totem-plugins printer-driver-brlaser printer-driver-foo2zjs printer-driver-foo2zjs-common printer-driver-m2300w printer-driver-ptouch printer-driver-splix
-    - name: Creating User to Login
-      run: |
-         sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
+       - name: Checkouts
+         uses: rokibhasansagar/slimhub_actions@main
+
+
+
+       - name: Creating User to Login
+         run: |
+            sudo useradd -m Area69Lab && sudo adduser Area69Lab sudo && echo 'Area69Lab:Area69Lab' | sudo chpasswd
      
       # To Install different Environment replace their commands. by default it Install 'Ubuntu'
       
@@ -58,32 +50,32 @@ jobs:
       # sudo apt update && sudo apt install xfce4 && sudo chmod 777 /home/Area69Lab/
       # sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
 
-    - name: Installing Desktop Environment (wait for 10 min)
-      run: sudo apt update && sudo apt install ubuntu-desktop
-    - name: Installing Google Chrome Headless
-      run: |
+       - name: Installing Desktop Environment (wait for 10 min)
+         run: sudo apt update && sudo apt install ubuntu-desktop
+       - name: Installing Google Chrome Headless
+         run: |
            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
            sudo dpkg --install google-chrome-stable_current_amd64.deb
            sudo apt install --assume-yes --fix-broken
-    - name: Installing Some Configurations
-      run: |
+       - name: Installing Some Configurations
+         run: |
            sudo apt install nautilus expect nano -y
            sudo apt install --assume-yes xscreensaver
-    - name: Installing Grdp
-      run: |
+       - name: Installing Grdp
+         run: |
            sudo apt-get update
            sudo apt-get install xbase-clients python3-psutil xvfb -y
            wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
            sudo dpkg --install chrome-remote-desktop_current_amd64.deb
            sudo apt install --assume-yes --fix-broken
            sudo adduser Area69Lab chrome-remote-desktop
-    - name: generate script
-      run: |
+       - name: generate script
+         run: |
            touch setup.sh
            echo "${{ github.event.inputs.auth }}" >> "setup.sh"
            chmod 777 setup.sh
-    - name: initialize GRDP
-      run: |   
+       - name: initialize GRDP
+         run: |   
            expect -c '
            spawn ./setup.sh
            expect "Enter a PIN of at least six digits: "
@@ -92,5 +84,5 @@ jobs:
            send "123456\r"
            expect eof
            '
-    - name: Create SSH Access
-      uses: mxschmitt/action-tmate@v3
+       - name: Create SSH Access
+         uses: mxschmitt/action-tmate@v3
