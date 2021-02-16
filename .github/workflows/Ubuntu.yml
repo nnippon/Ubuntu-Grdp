@@ -12,12 +12,10 @@ defaults:
     shell: bash
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
        - name: Checkouts
          uses: rokibhasansagar/slimhub_actions@main
-
-
 
        - name: Creating User to Login
          run: |
