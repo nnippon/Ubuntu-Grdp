@@ -49,7 +49,7 @@ jobs:
       # sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
 
        - name: Installing Desktop Environment (wait for 10 min)
-         run: sudo add-apt-repository ppa:ubuntukylin-members/ukui -y && sudo apt update && sudo apt upgrade && sudo apt install ukui-desktop-environment
+         run: sudo apt update && sudo apt install ubuntu-budgie-desktop -y
        - name: Installing Google Chrome Headless
          run: |
            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
